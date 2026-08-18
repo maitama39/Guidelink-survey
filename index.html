@@ -1,69 +1,515 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="description" content="Affordable and professional web design">
-	  <meta name="keywords" content="web design, affordable web design, professional web design">
-  	<meta name="author" content="Brad Traversy">
-    <title>Acme Web Deisgn | Welcome</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="icon" href="img/favicon.png">
-  </head>
-  <body>
-    <header>
-      <div class="container">
-        <div id="branding">
-          <h1><span class="highlight">Acme</span> Web Design</h1>
-        </div>
-        <nav>
-          <ul>
-            <li class="current"><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="services.html">Services</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuideLink Survey</title>
 
-    <section id="showcase">
-      <div class="container">
-        <h1>Affordable Professional Web Design</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu luctus ipsum, rhoncus semper magna. Nulla nec magna sit amet sem interdum condimentum.</p>
-      </div>
-    </section>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    <section id="newsletter">
-      <div class="container">
-        <h1>Subscribe To Our Newsletter</h1>
-        <form>
-          <input type="email" placeholder="Enter Email..." required>
-          <button type="submit" class="button_1">Subscribe</button>
-        </form>
-      </div>
-    </section>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
 
-    <section id="boxes">
-      <div class="container">
-        <div class="box">
-          <img src="./img/logo_html.png">
-          <h3>HTML5 Markup</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies</p>
-        </div>
-        <div class="box">
-          <img src="./img/logo_css.png">
-          <h3>CSS3 Styling</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies</p>
-        </div>
-        <div class="box">
-          <img src="./img/logo_brush.png">
-          <h3>Graphic Design</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies</p>
-        </div>
-      </div>
-    </section>
+        .container {
+            width: 100%;
+            max-width: 520px;
+            margin: auto;
+            padding: 20px;
+        }
 
-    <footer>
-      <p>Acme Web Deisgn, Copyright &copy; 2019</p>
-    </footer>
-  </body>
-</html>
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px 20px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .progress {
+            height: 7px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #2563eb;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .question {
+            margin-bottom: 28px;
+        }
+
+        .question h3 {
+            font-size: 17px;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            border: 1px solid #ddd;
+            padding: 13px;
+            margin: 8px 0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        label:hover {
+            background: #f0f5ff;
+        }
+
+        input {
+            margin-right: 8px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            background: #2563eb;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .thank-you {
+            display: none;
+            text-align: center;
+            padding: 30px 10px;
+        }
+
+        .heart {
+            font-size: 55px;
+        }
+
+        .thank-you h2 {
+            color: #2563eb;
+        }
+
+        .small {
+            color: #777;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div id="survey">
+
+            <div class="logo">GuideLink</div>
+
+            <p class="subtitle">
+                Help us understand how people seek guidance,
+                counseling and support.
+            </p>
+
+            <div class="progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="question">
+                <h3>1. What is your age range?</h3>
+
+                <label>
+                    <input type="radio" name="age">
+                    18–24
+                </label>
+
+                <label>
+                    <input type="radio" name="age">
+                    25–34
+                </label>
+
+                <label>
+                    <input type="radio" name="age">
+                    35–44
+                </label>
+
+                <label>
+                    <input type="radio" name="age">
+                    45+
+                </label>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <h3>2. What best describes your relationship status?</h3>
+
+                <label>
+                    <input type="radio" name="relationship">
+                    Single
+                </label>
+
+                <label>
+                    <input type="radio" name="relationship">
+                    Dating / In a relationship
+                </label>
+
+                <label>
+                    <input type="radio" name="relationship">
+                    Engaged
+                </label>
+
+                <label>
+                    <input type="radio" name="relationship">
+                    Married
+                </label>
+
+                <label>
+                    <input type="radio" name="relationship">
+                    Separated / Divorced
+                </label>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <h3>3. Have you ever needed professional guidance?</h3>
+
+                <label>
+                    <input type="radio" name="guidance">
+                    Yes
+                </label>
+
+                <label>
+                    <input type="radio" name="guidance">
+                    No
+                </label>
+
+                <label>
+                    <input type="radio" name="guidance">
+                    Not sure
+                </label>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <h3>4. Which areas would you seek guidance for?</h3>
+
+                <label>
+                    <input type="checkbox">
+                    Relationship / Marriage
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Premarital preparation
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Family problems
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Career / Education
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Personal development
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Business
+                </label>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <h3>5. If you had a serious problem, where would you seek help?</h3>
+
+                <label>
+                    <input type="radio" name="help">
+                    Family or friends
+                </label>
+
+                <label>
+                    <input type="radio" name="help">
+                    Religious leader
+                </label>
+
+                <label>
+                    <input type="radio" name="help">
+                    Professional counselor
+                </label>
+
+                <label>
+                    <input type="radio" name="help">
+                    Internet / Social media
+                </label>
+
+                <label>
+                    <input type="radio" name="help">
+                    I would not seek help
+                </label>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question">
+                <h3>6. What might stop you from seeking professional help?</h3>
+
+                <label>
+                    <input type="checkbox">
+                    Cost
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Privacy concerns
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Fear of being judged
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    I don't know where to find a professional
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Lack of time
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Lack of trust
+                </label>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question">
+                <h3>7. Would you use an online guidance platform?</h3>
+
+                <label>
+                    <input type="radio" name="online">
+                    Yes
+                </label>
+
+                <label>
+                    <input type="radio" name="online">
+                    Maybe
+                </label>
+
+                <label>
+                    <input type="radio" name="online">
+                    No
+                </label>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question">
+                <h3>8. Which method would you prefer?</h3>
+
+                <label>
+                    <input type="radio" name="method">
+                    Chat
+                </label>
+
+                <label>
+                    <input type="radio" name="method">
+                    Voice call
+                </label>
+
+                <label>
+                    <input type="radio" name="method">
+                    Video call
+                </label>
+
+                <label>
+                    <input type="radio" name="method">
+                    Face-to-face
+                </label>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question">
+                <h3>9. What would make you trust GuideLink?</h3>
+
+                <label>
+                    <input type="checkbox">
+                    Verified professionals
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Privacy and confidentiality
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Affordable prices
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Professional qualifications
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Reviews from other users
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    Secure payment
+                </label>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question">
+                <h3>10. What price would you consider reasonable for a session?</h3>
+
+                <label>
+                    <input type="radio" name="price">
+                    Below ₦3,000
+                </label>
+
+                <label>
+                    <input type="radio" name="price">
+                    ₦3,000–₦5,000
+                </label>
+
+                <label>
+                    <input type="radio" name="price">
+                    ₦5,000–₦10,000
+                </label>
+
+                <label>
+                    <input type="radio" name="price">
+                    ₦10,000–₦20,000
+                </label>
+
+                <label>
+                    <input type="radio" name="price">
+                    Above ₦20,000
+                </label>
+            </div>
+
+            <button class="submit-btn" onclick="submitSurvey()">
+                Submit Survey
+            </button>
+
+            <p class="small" style="text-align:center; margin-top:15px;">
+                No name or phone number is required.
+            </p>
+
+        </div>
+
+        <div class="thank-you" id="thankYou">
+
+            <div class="heart">❤️</div>
+
+            <h2>Thank You!</h2>
+
+            <p>
+                Your response has been received.
+            </p>
+
+            <p>
+                Your feedback will help us build GuideLink.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function updateProgress() {
+
+    const questions = document.querySelectorAll(".question");
+
+    let answered = 0;
+
+    questions.forEach(function(question) {
+
+        const inputs = question.querySelectorAll("input");
+
+        let selected = false;
+
+        inputs.forEach(function(input) {
+
+            if (input.checked) {
+                selected = true;
+            }
+
+        });
+
+        if (selected) {
+            answered++;
+        }
+
+    });
+
+    const percentage = (answered / questions.length) * 100;
+
+    document.getElementById("progressBar").style.width =
+        percentage + "%";
+}
+
+document.querySelectorAll("input").forEach(function(input) {
+
+    input.addEventListener("change", updateProgress);
+
+});
+
+function submitSurvey() {
+
+    document.getElementById("survey").style.display = "none";
+
+    document.getElementById("thankYou").style.display = "block";
+
+    window.scrollTo(0, 0);
+}
+
+</script>
+
+</body>
+					</html>
