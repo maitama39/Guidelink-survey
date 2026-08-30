@@ -380,23 +380,19 @@
                 </label>
 
                 <label>
-                    <input type="checkbox">
-                    Affordable prices
+                    <input type="checkbox" name="features" value="Affordable prices">
                 </label>
 
                 <label>
-                    <input type="checkbox">
-                    Professional qualifications
+                    <input type="checkbox" name="features" value="Professional qualifications">
                 </label>
 
                 <label>
-                    <input type="checkbox">
-                    Reviews from other users
+                    <input type="checkbox" name="features" value="Reviews from other users">
                 </label>
 
                 <label>
-                    <input type="checkbox">
-                    Secure payment
+                    <input type="checkbox" name="features" value="Secure payment">
                 </label>
             </div>
 
@@ -405,27 +401,27 @@
                 <h3>10. What price would you consider reasonable for a session?</h3>
 
                 <label>
-                    <input type="radio" name="price">
+                    <input type="radio" name="price" value=">
                     Below ₦3,000
                 </label>
 
                 <label>
-                    <input type="radio" name="price">
+                    <input type="radio" name="price" value">
                     ₦3,000–₦5,000
                 </label>
 
                 <label>
-                    <input type="radio" name="price">
+                    <input type="radio" name="price" value">
                     ₦5,000–₦10,000
                 </label>
 
                 <label>
-                    <input type="radio" name="price">
+                    <input type="radio" name="price" value">
                     ₦10,000–₦20,000
                 </label>
 
                 <label>
-                    <input type="radio" name="price">
+                    <input type="radio" name="price" value">
                     Above ₦20,000
                 </label>
             </div>
@@ -462,23 +458,61 @@
 
 <script>
 
-function updateProgress() {
+async function submitSurvey() {
+  const form = document.getElementById("survey");
 
-    const questions = document.querySelectorAll(".question");
+  if (!form) {
+    alert("Survey form not found.");
+    return;
+  }
 
-    let answered = 0;
+  const submitButton = form.querySelector(".submit-btn");
 
-    questions.forEach(function(question) {
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
+  }
 
-        const inputs = question.querySelectorAll("input");
+  const scriptURL =
+    "https://script.google.com/macros/s/AKfycbwhzDXwHHBmOylGRcfrz76Ft0qlrrlqQzQYU_dquen4rbDvmZe_-US7ZN5fXiNiCExh_A/exec";
 
-        let selected = false;
+  try {
+    const formData = new FormData(form);
 
-        inputs.forEach(function(input) {
+    const data = new URLSearchParams();
 
-            if (input.checked) {
-                selected = true;
-            }
+    for (const [key, value] of formData.entries()) {
+      data.append(key, value);
+    }
+
+    await fetch(scriptURL, {
+      method: "POST",
+      body: data,
+      mode: "no-cors"
+    });
+
+    // Hide the survey
+    form.style.display = "none";
+
+    // Show thank-you message
+    const thankYou = document.getElementById("thankYou");
+
+    if (thankYou) {
+      thankYou.style.display = "block";
+    }
+
+    window.scrollTo(0, 0);
+
+  } catch (error) {
+    console.error("Submission error:", error);
+    alert("There was a problem submitting your response. Please try again.");
+
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = "Submit Survey";
+    }
+  }
+}
 
         });
 
