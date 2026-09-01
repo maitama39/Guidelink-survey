@@ -1,68 +1,319 @@
-[7:12 PM, 9/1/2026] Yusuf: <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Test Survey</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuideLink Survey</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2563eb;
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .question h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            padding: 8px;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        label:hover {
+            background: #f0f5ff;
+        }
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background: #1d4ed8;
+        }
+        .submit-btn:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+        .thank-you {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        .thank-you h2 {
+            color: #2563eb;
+        }
+        #progressBar {
+            width: 0%;
+            height: 10px;
+            background: #2563eb;
+            border-radius: 5px;
+            transition: width 0.3s;
+        }
+        .progress {
+            background: #e5e7eb;
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .error-msg {
+            color: red;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid red;
+            border-radius: 5px;
+            display: none;
+        }
+        .success-msg {
+            color: green;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid green;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Test Survey</h1>
+<div class="container">
+    <h1>GuideLink Survey</h1>
+    <p style="text-align:center; color:#666;">Help us understand how people seek guidance.</p>
 
-<form id="survey">
-    <p>Question 1: What is your age?</p>
-    <input type="radio" name="age" value="18-24"> 18-24<br>
-    <input type="radio" name="age" value="25-34"> 25-34<br>
-    <input type="radio" name="age" value="35-44"> 35-44<br>
-    <input type="radio" name="age" value="45+"> 45+<br><br>
+    <div class="progress">
+        <div id="progressBar"></div>
+    </div>
 
-    <button type="button" onclick="submitSurvey()">Submit</button>
-</form>
+    <div id="errorMsg" class="error-msg"></div>
+    <div id="successMsg" class="success-msg"></div>
 
-<div id="thankYou" style="display:none; color:green; font-size:24px;">
-    ✅ Thank You! Your response has been received.
+    <form id="survey">
+        <!-- Question 1 -->
+        <div class="question">
+            <h3>1. What is your age range?</h3>
+            <label><input type="radio" name="age" value="18-24"> 18–24</label>
+            <label><input type="radio" name="age" value="25-34"> 25–34</label>
+            <label><input type="radio" name="age" value="35-44"> 35–44</label>
+            <label><input type="radio" name="age" value="45+"> 45+</label>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+            <h3>2. What best describes your relationship status?</h3>
+            <label><input type="radio" name="relationship" value="Single"> Single</label>
+            <label><input type="radio" name="relationship" value="Dating"> Dating / In a relationship</label>
+            <label><input type="radio" name="relationship" value="Engaged"> Engaged</label>
+            <label><input type="radio" name="relationship" value="Married"> Married</label>
+            <label><input type="radio" name="relationship" value="Divorced"> Separated / Divorced</label>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">
+            <h3>3. Have you ever needed professional guidance?</h3>
+            <label><input type="radio" name="guidance" value="Yes"> Yes</label>
+            <label><input type="radio" name="guidance" value="No"> No</label>
+            <label><input type="radio" name="guidance" value="Not sure"> Not sure</label>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question">
+            <h3>4. Which areas would you seek guidance for?</h3>
+            <label><input type="checkbox" name="areas" value="Relationship"> Relationship / Marriage</label>
+            <label><input type="checkbox" name="areas" value="Premarital"> Premarital preparation</label>
+            <label><input type="checkbox" name="areas" value="Family"> Family problems</label>
+            <label><input type="checkbox" name="areas" value="Career"> Career / Education</label>
+            <label><input type="checkbox" name="areas" value="Personal"> Personal development</label>
+            <label><input type="checkbox" name="areas" value="Business"> Business</label>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question">
+            <h3>5. If you had a serious problem, where would you seek help?</h3>
+            <label><input type="radio" name="help" value="Family"> Family or friends</label>
+            <label><input type="radio" name="help" value="Religious"> Religious leader</label>
+            <label><input type="radio" name="help" value="Professional"> Professional counselor</label>
+            <label><input type="radio" name="help" value="Internet"> Internet / Social media</label>
+            <label><input type="radio" name="help" value="None"> I would not seek help</label>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question">
+            <h3>6. What might stop you from seeking professional help?</h3>
+            <label><input type="checkbox" name="barriers" value="Cost"> Cost</label>
+            <label><input type="checkbox" name="barriers" value="Privacy"> Privacy concerns</label>
+            <label><input type="checkbox" name="barriers" value="Judgment"> Fear of being judged</label>
+            <label><input type="checkbox" name="barriers" value="DontKnow"> I don't know where to find a professional</label>
+            <label><input type="checkbox" name="barriers" value="Time"> Lack of time</label>
+            <label><input type="checkbox" name="barriers" value="Trust"> Lack of trust</label>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question">
+            <h3>7. Would you use an online guidance platform?</h3>
+            <label><input type="radio" name="online" value="Yes"> Yes</label>
+            <label><input type="radio" name="online" value="Maybe"> Maybe</label>
+            <label><input type="radio" name="online" value="No"> No</label>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question">
+            <h3>8. Which method would you prefer?</h3>
+            <label><input type="radio" name="method" value="Chat"> Chat</label>
+            <label><input type="radio" name="method" value="Voice"> Voice call</label>
+            <label><input type="radio" name="method" value="Video"> Video call</label>
+            <label><input type="radio" name="method" value="Face"> Face-to-face</label>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question">
+            <h3>9. What would make you trust GuideLink?</h3>
+            <label><input type="checkbox" name="features" value="Verified"> Verified professionals</label>
+            <label><input type="checkbox" name="features" value="Privacy"> Privacy and confidentiality</label>
+            <label><input type="checkbox" name="features" value="Affordable"> Affordable prices</label>
+            <label><input type="checkbox" name="features" value="Qualified"> Professional qualifications</label>
+            <label><input type="checkbox" name="features" value="Reviews"> Reviews from other users</label>
+            <label><input type="checkbox" name="features" value="Secure"> Secure payment</label>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question">
+            <h3>10. What price would you consider reasonable for a session?</h3>
+            <label><input type="radio" name="price" value="Below 3000"> Below ₦3,000</label>
+            <label><input type="radio" name="price" value="3000-5000"> ₦3,000–₦5,000</label>
+            <label><input type="radio" name="price" value="5000-10000"> ₦5,000–₦10,000</label>
+            <label><input type="radio" name="price" value="10000-20000"> ₦10,000–₦20,000</label>
+            <label><input type="radio" name="price" value="Above 20000"> Above ₦20,000</label>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="submitSurvey()" id="submitBtn">
+            Submit Survey
+        </button>
+    </form>
+
+    <div class="thank-you" id="thankYou">
+        <h2>❤️ Thank You!</h2>
+        <p>Your response has been received.</p>
+        <p>Your feedback will help us build GuideLink.</p>
+    </div>
 </div>
 
 <script>
-async function submitSurvey() {
-    alert("1. Button clicked!");
+// Update progress bar
+function updateProgress() {
+    const questions = document.querySelectorAll('.question');
+    let answered = 0;
+    questions.forEach(question => {
+        const inputs = question.querySelectorAll('input');
+        let isAnswered = false;
+        inputs.forEach(input => {
+            if (input.type === 'radio' || input.type === 'checkbox') {
+                if (input.checked) isAnswered = true;
+            }
+        });
+        if (isAnswered) answered++;
+    });
+    const percentage = (answered / questions.length) * 100;
+    document.getElementById('progressBar').style.width = percentage + '%';
+}
 
-    const form = document.getElementById("survey");
+// Add event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('change', updateProgress);
+    });
+    updateProgress();
+});
+
+// Submit function
+async function submitSurvey() {
+    console.log("Function started");
+
+    const form = document.getElementById('survey');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const successMsg = document.getElementById('successMsg');
+
+    // Hide any previous messages
+    errorMsg.style.display = 'none';
+    successMsg.style.display = 'none';
+
+    // Disable button
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    // Collect form data
     const formData = new FormData(form);
     const data = {};
     formData.forEach((value, key) => {
-        data[key] = value;
+        if (data[key]) {
+            data[key] += ', ' + value;
+        } else {
+            data[key] = value;
+        }
     });
 
-    alert("2. Data collected: " + JSON.stringify(data));
-
-    const submitButton = document.querySelector("button");
-    submitButton.disabled = true;
-    submitButton.textContent = "Submitting...";
+    console.log('Data:', data);
 
     try {
-        alert("3. About to send data...");
-
         
-        const response = await fetch("https://script.google.com/macros/s/AKfycbxqGo5_CIxemkImac1SiMWuA6BE6RhyIUrQAv4IXTTILv1k7AufIuY3cUXmY29SN6Xm/exec", {
-            method: "POST",
+        const url = "https://script.google.com/macros/s/AKfycbxqGo5_CIxemkImac1SiMWuA6BE6RhyIUrQAv4IXTTILv1k7AufIuY3cUXmY29SN6Xm/exec";
+        console.log('Fetching URL:', url);
+
+        const response = await fetch(url, {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: new URLSearchParams(data).toString()
         });
 
-        alert("4. Response received!");
-        console.log("Response:", response);
+        console.log('Response status:', response.status);
+        const result = await response.text();
+        console.log('Response:', result);
 
-        document.getElementById("survey").style.display = "none";
-        document.getElementById("thankYou").style.display = "block";
+        if (response.status === 200) {
+            // Show thank you
+            document.getElementById('survey').style.display = 'none';
+            document.getElementById('thankYou').style.display = 'block';
+        } else {
+            errorMsg.textContent = 'Error: ' + response.status + ' - ' + result;
+            errorMsg.style.display = 'block';
+        }
 
     } catch (error) {
-        alert("5. Error: " + error.message);
-        console.error("Error:", error);
+        console.error('Error:', error);
+        errorMsg.textContent = 'Error: ' + error.message + '. Please check console for details.';
+        errorMsg.style.display = 'block';
     }
 
-    submitButton.disabled = false;
-    submitButton.textContent = "Submit";
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Survey';
 }
 </script>
 
