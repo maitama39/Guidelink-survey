@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+[2:18 PM, 9/1/2026] Yusuf: <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -105,6 +105,11 @@
             background: #1d4ed8;
         }
 
+        .submit-btn:disabled {
+            background: #93a3b8;
+            cursor: not-allowed;
+        }
+
         .thank-you {
             display: none;
             text-align: center;
@@ -180,7 +185,7 @@
                 </label>
 
                 <label>
-                    <input type="radio" name="relationship" value="Dating / In a relationship">
+                    <input type="radio" name="relationship" value="Dating/In a relationship">
                     Dating / In a relationship
                 </label>
 
@@ -195,7 +200,7 @@
                 </label>
 
                 <label>
-                    <input type="radio" name="relationship" value="Separated / Divorced">
+                    <input type="radio" name="relationship" value="Separated/Divorced">
                     Separated / Divorced
                 </label>
             </div>
@@ -225,32 +230,32 @@
                 <h3>4. Which areas would you seek guidance for?</h3>
 
                 <label>
-                    <input type="checkbox" name="areas">
+                    <input type="checkbox" name="areas" value="Relationship/Marriage">
                     Relationship / Marriage
                 </label>
 
                 <label>
-                    <input type="checkbox" name="areas">
+                    <input type="checkbox" name="areas" value="Premarital preparation">
                     Premarital preparation
                 </label>
 
                 <label>
-                    <input type="checkbox" name="areas">
+                    <input type="checkbox" name="areas" value="Family problems">
                     Family problems
                 </label>
 
                 <label>
-                    <input type="checkbox" name="areas">
+                    <input type="checkbox" name="areas" value="Career/Education">
                     Career / Education
                 </label>
 
                 <label>
-                    <input type="checkbox" name="areas">
+                    <input type="checkbox" name="areas" value="Personal development">
                     Personal development
                 </label>
 
                 <label>
-                    <input type="checkbox" name="areas">
+                    <input type="checkbox" name="areas" value="Business">
                     Business
                 </label>
             </div>
@@ -275,7 +280,7 @@
                 </label>
 
                 <label>
-                    <input type="radio" name="help" value="Internet / Social media">
+                    <input type="radio" name="help" value="Internet/Social media">
                     Internet / Social media
                 </label>
 
@@ -290,32 +295,32 @@
                 <h3>6. What might stop you from seeking professional help?</h3>
 
                 <label>
-                    <input type="checkbox" name="barriers">
+                    <input type="checkbox" name="barriers" value="Cost">
                     Cost
                 </label>
 
                 <label>
-                    <input type="checkbox" name="barriers">
+                    <input type="checkbox" name="barriers" value="Privacy concerns">
                     Privacy concerns
                 </label>
 
                 <label>
-                    <input type="checkbox" name="barriers">
+                    <input type="checkbox" name="barriers" value="Fear of being judged">
                     Fear of being judged
                 </label>
 
                 <label>
-                    <input type="checkbox" name="barriers">
+                    <input type="checkbox" name="barriers" value="I don't know where to find a professional">
                     I don't know where to find a professional
                 </label>
 
                 <label>
-                    <input type="checkbox" name="barriers">
+                    <input type="checkbox" name="barriers" value="Lack of time">
                     Lack of time
                 </label>
 
                 <label>
-                    <input type="checkbox" name="barriers">
+                    <input type="checkbox" name="barriers" value="Lack of trust">
                     Lack of trust
                 </label>
             </div>
@@ -381,50 +386,53 @@
 
                 <label>
                     <input type="checkbox" name="features" value="Affordable prices">
-					Affordable prices
+                    Affordable prices
                 </label>
 
                 <label>
                     <input type="checkbox" name="features" value="Professional qualifications">
-					Professional qualifications
+                    Professional qualifications
                 </label>
 
                 <label>
                     <input type="checkbox" name="features" value="Reviews from other users">
-					Reviews from other users
+                    Reviews from other users
                 </label>
 
                 <label>
                     <input type="checkbox" name="features" value="Secure payment">
-					Secure payment
+                    Secure payment
                 </label>
             </div>
 
             <!-- Question 10 -->
             <div class="question">
                 <h3>10. What price would you consider reasonable for a session?</h3>
-				
-				<label>
-					<input type="radio" name="price" value="Below ₦3,000">
-					Below ₦3,000
-				</label>
-				<label>
-					<input type="radio" name="price" value="₦3,000–₦5,000">
-					₦3,000–₦5,000
-				</label>
-				<label>
-					<input type="radio" name="price" value="₦5,000–₦10,000">
-					₦5,000–₦10,000
-				</label>
-				<label>
-					<input type="radio" name="price" value="₦10,000–₦20,000">
-					₦10,000–₦20,000
-				</label>
-				<label>
-					<input type="radio" name="price" value="Above ₦20,000">
-					Above ₦20,000
-				</label>
-				
+
+                <label>
+                    <input type="radio" name="price" value="Below ₦3,000">
+                    Below ₦3,000
+                </label>
+
+                <label>
+                    <input type="radio" name="price" value="₦3,000–₦5,000">
+                    ₦3,000–₦5,000
+                </label>
+
+                <label>
+                    <input type="radio" name="price" value="₦5,000–₦10,000">
+                    ₦5,000–₦10,000
+                </label>
+
+                <label>
+                    <input type="radio" name="price" value="₦10,000–₦20,000">
+                    ₦10,000–₦20,000
+                </label>
+
+                <label>
+                    <input type="radio" name="price" value="Above ₦20,000">
+                    Above ₦20,000
+                </label>
             </div>
 
             <button type="button" class="submit-btn" onclick="submitSurvey()">
@@ -456,17 +464,17 @@
     </div>
 
 </div>
-	
-	<script>
+
+<script>
 // Calculate and update progress
 function updateProgress() {
     const questions = document.querySelectorAll('.question');
     let answered = 0;
-    
+
     questions.forEach(question => {
         const inputs = question.querySelectorAll('input');
         let isAnswered = false;
-        
+
         inputs.forEach(input => {
             if (input.type === 'radio' || input.type === 'checkbox') {
                 if (input.checked) {
@@ -474,16 +482,16 @@ function updateProgress() {
                 }
             }
         });
-        
+
         if (isAnswered) {
             answered++;
         }
     });
-    
+
     const percentage = (answered / questions.length) * 100;
-    const progressBar = document.getElementById("progressBar");
+    const progressBar = document.getElementById('progressBar');
     if (progressBar) {
-        progressBar.style.width = percentage + "%";
+        progressBar.style.width = percentage + '%';
     }
 }
 
@@ -519,26 +527,40 @@ async function submitSurvey() {
     });
 
     try {
-        await fetch("https://https://script.google.com/macros/s/AKfycbzShe-xRLmkbNRDnu7xuDtnOQVWAlENda_v33qPcLDLfXn3p_xXDYCkOKgTkIVTBk1l/execc", {
+        // Add a timeout of 15 seconds
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+        // ⚠️ REPLACE THIS URL WITH YOUR NEW DEPLOYMENT URL ⚠️
+        await fetch("https://script.google.com/macros/s/YOUR_NEW_URL_HERE/exec", {
             method: "POST",
-            mode: "no-cors",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
-            body: new URLSearchParams(data).toString()
+            body: new URLSearchParams(data).toString(),
+            signal: controller.signal
         });
+
+        clearTimeout(timeoutId);
         
         // Hide survey, show thank you
         document.getElementById("survey").style.display = "none";
         document.getElementById("thankYou").style.display = "block";
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Survey";
         
     } catch (error) {
         console.error(error);
-        alert("There was a problem submitting the survey. Please try again.");
+        if (error.name === 'AbortError') {
+            alert("Submission is taking too long. Please try again.");
+        } else {
+            alert("There was a problem submitting the survey. Please try again.");
+        }
         submitButton.disabled = false;
         submitButton.textContent = "Submit Survey";
     }
 }
 </script>
+
 </body>
-					</html>
+</html>
