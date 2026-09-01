@@ -565,63 +565,6 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.textContent = "Submit Survey";
     }
 }
-async function submitSurvey() {
-    const form = document.getElementById("survey");
-
-    if (!form) {
-        alert("Survey form not found.");
-        return;
-    }
-
-    const submitButton = document.querySelector(".submit-btn");
-    submitButton.disabled = true;
-    submitButton.textContent = "Submitting...";
-
-    const formData = new FormData(form);
-    const data = {};
-    formData.forEach((value, key) => {
-        if (data[key]) {
-            data[key] += ", " + value;
-        } else {
-            data[key] = value;
-        }
-    });
-
-    console.log("Form Data:", data);
-
-    try {
-        // TEMPORARILY SKIP THE FETCH - TEST MODE
-        // await fetch("YOUR_URL_HERE", { ... });
-        
-        // Simulate a delay (optional)
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Show thank you
-        document.getElementById("survey").style.display = "none";
-        document.getElementById("thankYou").style.display = "block";
-        submitButton.disabled = false;
-        submitButton.textContent = "Submit Survey";
-        
-    } catch (error) {
-        console.error("Error:", error);
-        alert("There was a problem. Please try again.");
-        submitButton.disabled = false;
-        submitButton.textContent = "Submit Survey";
-    }
-}
-// SUBMIT SURVEY FUNCTION";
-        
-    } catch (error) {
-        console.error("Error:", error);
-        if (error.name === 'AbortError') {
-            alert("Submission is taking too long. Please try again.");
-        } else {
-            alert("There was a problem submitting the survey. Please try again. Check console for details.");
-        }
-        submitButton.disabled = false;
-        submitButton.textContent = "Submit Survey";
-    }
-}
 </script>
 
 </body>
