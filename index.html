@@ -527,39 +527,10 @@ async function submitSurvey() {
     });
 
     try {
-        // Add a timeout of 15 seconds
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-        // ⚠️ REPLACE THIS URL WITH YOUR NEW DEPLOYMENT URL ⚠️
-        await fetch(await fetch("https://script.google.com/macros/s/AKfycbx4EtokWvIidR5tUMKjCt122P7ZGzBK5N8pSskLN2Vlra1pseYe9_IbwjJs0sNA2Prz/exec", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: new URLSearchParams(data).toString(),
-            signal: controller.signal
-        });
-
-        clearTimeout(timeoutId);
-        
-        // Hide survey, show thank you
-        document.getElementById("survey").style.display = "none";
-        document.getElementById("thankYou").style.display = "block";
-        submitButton.disabled = false;
-        submitButton.textContent = "Submit Survey";
-        
-    } catch (error) {
-        console.error(error);
-        if (error.name === 'AbortError') {
-            alert("Submission is taking too long. Please try again.");
-        } else {
-            alert("There was a problem submitting the survey. Please try again.");
-        }
-        submitButton.disabled = false;
-        submitButton.textContent = "Submit Survey";
-    }
-}
+        await fetch("https://script.google.com/macros/s/AKfycbx4EtokWvIidR5tUMKjCt122P7ZGzB…
 </script>
 
 </body>
