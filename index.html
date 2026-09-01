@@ -281,45 +281,64 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Submit function
-async function submitSurvey() {
-    const btn = document.getElementById('submitBtn');
-    const errorDiv = document.getElementById('errorMsg');
+    async function submitSurvey() {
+    const form = document.getElementById("survey");
 
-    btn.disabled = true;
-    btn.textContent = 'Submitting...';
-    errorDiv.style.display = 'none';
+    if (!form) {
+        alert("Survey form not found.");
+        return;
+    }
 
-    const form = document.getElementById('survey');
+    const submitButton = document.querySelector(".submit-btn");
+
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
+    }
+
     const formData = new FormData(form);
     const data = {};
+
     formData.forEach((value, key) => {
         if (data[key]) {
-            data[key] += ', ' + value;
+            if (!Array.isArray(data[key])) {
+                data[key] = [data[key]];
+            }
+            data[key].push(value);
         } else {
             data[key] = value;
         }
     });
 
     try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
+        await fetch(API_URL, {
+            method: "POST",
+            mode: "no-cors",
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                "Content-Type": "application/x-www-form-urlencoded"
             },
             body: new URLSearchParams(data).toString()
         });
 
-        if (response.ok) {
-            document.getElementById('survey').style.display = 'none';
-            document.getElementById('thankYou').style.display = 'block';
-        } else {
-            throw new Error('Server responded with: ' + response.status);
+        form.style.display = "none";
+
+        const thankYou = document.getElementById("thankYou");
+
+        if (thankYou) {
+            thankYou.style.display = "block";
         }
+
+        window.scrollTo(0, 0);
+
     } catch (error) {
-        errorDiv.textContent = 'Error: ' + error.message + '. Please try again.';
-        errorDiv.style.display = 'block';
-        btn.disabled = false;
-        btn.textContent = 'Submit Survey';
+        console.error(error);
+
+        alert("There was a problem submitting the survey. Please try again.");
+
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Survey";
+        }
     }
 }
 </script>
