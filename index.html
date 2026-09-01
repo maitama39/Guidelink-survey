@@ -537,7 +537,6 @@ async function submitSurvey() {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-        // ⚠️ REPLACE THIS URL WITH YOUR NEW DEPLOYMENT URL ⚠️
         const response = await fetch("https://script.google.com/macros/s/AKfycbx4EtokWvIidR5tUMKjCt122P7ZGzBK5N8pSskLN2Vlra1pseYe9_IbwjJs0sNA2Prz/exec", {
             method: "POST",
             headers: {
