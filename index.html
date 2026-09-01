@@ -4,118 +4,212 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GuideLink Survey</title>
+    <link rel="stylesheet" href="style.css">
     <style>
+        /* Reset & Base */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 40px auto;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f4f8;
+            color: #1a202c;
+            line-height: 1.6;
             padding: 20px;
-            background: #f5f5f5;
         }
+        
+        /* Container */
         .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 640px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            padding: 40px;
         }
-        h1 {
-            color: #2563eb;
+        
+        /* Header */
+        .header {
             text-align: center;
+            margin-bottom: 32px;
         }
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2563eb;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            color: #4a5568;
+            margin-top: 8px;
+            font-size: 15px;
+        }
+        
+        /* Progress Bar */
+        .progress-wrapper {
+            margin-bottom: 32px;
+        }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #4a5568;
+            margin-bottom: 6px;
+        }
+        .progress-track {
+            background: #e2e8f0;
+            height: 6px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #2563eb;
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+        
+        /* Questions */
         .question {
-            margin-bottom: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            margin-bottom: 28px;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            transition: border-color 0.2s;
+        }
+        .question.completed {
+            border-color: #2563eb;
         }
         .question h3 {
-            margin-top: 0;
-            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
         }
-        label {
+        .question label {
             display: block;
-            padding: 8px;
-            margin: 5px 0;
-            cursor: pointer;
-        }
-        label:hover {
-            background: #f0f5ff;
-        }
-        input[type="radio"], input[type="checkbox"] {
-            margin-right: 10px;
-        }
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: #2563eb;
-            color: white;
-            border: none;
+            padding: 10px 14px;
+            margin: 4px 0;
+            background: #ffffff;
             border-radius: 8px;
-            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.15s;
+            border: 1px solid transparent;
+        }
+        .question label:hover {
+            background: #edf2f7;
+        }
+        .question input[type="radio"],
+        .question input[type="checkbox"] {
+            margin-right: 10px;
+            accent-color: #2563eb;
+            width: 16px;
+            height: 16px;
             cursor: pointer;
         }
-        .submit-btn:hover {
+        
+        /* Button */
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, opacity 0.2s;
+        }
+        .btn-submit:hover {
             background: #1d4ed8;
         }
-        .submit-btn:disabled {
-            background: #999;
+        .btn-submit:disabled {
+            background: #a0aec0;
             cursor: not-allowed;
+            opacity: 0.7;
         }
+        
+        /* Thank You */
         .thank-you {
             display: none;
             text-align: center;
-            padding: 40px;
+            padding: 40px 20px;
+        }
+        .thank-you .icon {
+            font-size: 56px;
+            margin-bottom: 16px;
         }
         .thank-you h2 {
             color: #2563eb;
+            font-size: 28px;
         }
-        #progressBar {
-            width: 0%;
-            height: 10px;
-            background: #2563eb;
-            border-radius: 5px;
-            transition: width 0.3s;
+        .thank-you p {
+            color: #4a5568;
+            margin-top: 8px;
         }
-        .progress {
-            background: #e5e7eb;
-            height: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .error-msg {
-            color: red;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid red;
-            border-radius: 5px;
+        
+        /* Messages */
+        .message {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
             display: none;
+            font-size: 14px;
         }
-        .success-msg {
-            color: green;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid green;
-            border-radius: 5px;
-            display: none;
+        .message.error {
+            background: #fed7d7;
+            color: #9b2c2c;
+            border: 1px solid #feb2b2;
+        }
+        .message.success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            color: #a0aec0;
+            font-size: 13px;
+            margin-top: 24px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container { padding: 20px; }
+            .question { padding: 16px; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>GuideLink Survey</h1>
-    <p style="text-align:center; color:#666;">Help us understand how people seek guidance.</p>
-
-    <div class="progress">
-        <div id="progressBar"></div>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">GuideLink</div>
+        <p class="subtitle">Help us understand how people seek guidance, counseling, and support.</p>
     </div>
 
-    <div id="errorMsg" class="error-msg"></div>
-    <div id="successMsg" class="success-msg"></div>
+    <!-- Progress -->
+    <div class="progress-wrapper">
+        <div class="progress-label">
+            <span>Progress</span>
+            <span id="progressText">0%</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
 
-    <form id="survey">
+    <!-- Messages -->
+    <div id="errorMessage" class="message error"></div>
+    <div id="successMessage" class="message success"></div>
+
+    <!-- Survey Form -->
+    <form id="surveyForm" onsubmit="return false;">
         <!-- Question 1 -->
-        <div class="question">
+        <div class="question" data-question="1">
             <h3>1. What is your age range?</h3>
             <label><input type="radio" name="age" value="18-24"> 18–24</label>
             <label><input type="radio" name="age" value="25-34"> 25–34</label>
@@ -124,17 +218,17 @@
         </div>
 
         <!-- Question 2 -->
-        <div class="question">
+        <div class="question" data-question="2">
             <h3>2. What best describes your relationship status?</h3>
             <label><input type="radio" name="relationship" value="Single"> Single</label>
-            <label><input type="radio" name="relationship" value="Dating"> Dating / In a relationship</label>
+            <label><input type="radio" name="relationship" value="In a relationship"> Dating / In a relationship</label>
             <label><input type="radio" name="relationship" value="Engaged"> Engaged</label>
             <label><input type="radio" name="relationship" value="Married"> Married</label>
-            <label><input type="radio" name="relationship" value="Divorced"> Separated / Divorced</label>
+            <label><input type="radio" name="relationship" value="Separated/Divorced"> Separated / Divorced</label>
         </div>
 
         <!-- Question 3 -->
-        <div class="question">
+        <div class="question" data-question="3">
             <h3>3. Have you ever needed professional guidance?</h3>
             <label><input type="radio" name="guidance" value="Yes"> Yes</label>
             <label><input type="radio" name="guidance" value="No"> No</label>
@@ -142,8 +236,8 @@
         </div>
 
         <!-- Question 4 -->
-        <div class="question">
-            <h3>4. Which areas would you seek guidance for?</h3>
+        <div class="question" data-question="4">
+            <h3>4. Which areas would you seek guidance for? <span style="font-weight:400;color:#718096;">(Select all that apply)</span></h3>
             <label><input type="checkbox" name="areas" value="Relationship"> Relationship / Marriage</label>
             <label><input type="checkbox" name="areas" value="Premarital"> Premarital preparation</label>
             <label><input type="checkbox" name="areas" value="Family"> Family problems</label>
@@ -153,28 +247,28 @@
         </div>
 
         <!-- Question 5 -->
-        <div class="question">
+        <div class="question" data-question="5">
             <h3>5. If you had a serious problem, where would you seek help?</h3>
-            <label><input type="radio" name="help" value="Family"> Family or friends</label>
-            <label><input type="radio" name="help" value="Religious"> Religious leader</label>
-            <label><input type="radio" name="help" value="Professional"> Professional counselor</label>
+            <label><input type="radio" name="help" value="Family or friends"> Family or friends</label>
+            <label><input type="radio" name="help" value="Religious leader"> Religious leader</label>
+            <label><input type="radio" name="help" value="Professional counselor"> Professional counselor</label>
             <label><input type="radio" name="help" value="Internet"> Internet / Social media</label>
-            <label><input type="radio" name="help" value="None"> I would not seek help</label>
+            <label><input type="radio" name="help" value="Would not seek help"> I would not seek help</label>
         </div>
 
         <!-- Question 6 -->
-        <div class="question">
-            <h3>6. What might stop you from seeking professional help?</h3>
+        <div class="question" data-question="6">
+            <h3>6. What might stop you from seeking professional help? <span style="font-weight:400;color:#718096;">(Select all that apply)</span></h3>
             <label><input type="checkbox" name="barriers" value="Cost"> Cost</label>
-            <label><input type="checkbox" name="barriers" value="Privacy"> Privacy concerns</label>
-            <label><input type="checkbox" name="barriers" value="Judgment"> Fear of being judged</label>
-            <label><input type="checkbox" name="barriers" value="DontKnow"> I don't know where to find a professional</label>
-            <label><input type="checkbox" name="barriers" value="Time"> Lack of time</label>
-            <label><input type="checkbox" name="barriers" value="Trust"> Lack of trust</label>
+            <label><input type="checkbox" name="barriers" value="Privacy concerns"> Privacy concerns</label>
+            <label><input type="checkbox" name="barriers" value="Fear of being judged"> Fear of being judged</label>
+            <label><input type="checkbox" name="barriers" value="Don't know where to find"> I don't know where to find a professional</label>
+            <label><input type="checkbox" name="barriers" value="Lack of time"> Lack of time</label>
+            <label><input type="checkbox" name="barriers" value="Lack of trust"> Lack of trust</label>
         </div>
 
         <!-- Question 7 -->
-        <div class="question">
+        <div class="question" data-question="7">
             <h3>7. Would you use an online guidance platform?</h3>
             <label><input type="radio" name="online" value="Yes"> Yes</label>
             <label><input type="radio" name="online" value="Maybe"> Maybe</label>
@@ -182,139 +276,269 @@
         </div>
 
         <!-- Question 8 -->
-        <div class="question">
+        <div class="question" data-question="8">
             <h3>8. Which method would you prefer?</h3>
             <label><input type="radio" name="method" value="Chat"> Chat</label>
-            <label><input type="radio" name="method" value="Voice"> Voice call</label>
-            <label><input type="radio" name="method" value="Video"> Video call</label>
-            <label><input type="radio" name="method" value="Face"> Face-to-face</label>
+            <label><input type="radio" name="method" value="Voice call"> Voice call</label>
+            <label><input type="radio" name="method" value="Video call"> Video call</label>
+            <label><input type="radio" name="method" value="Face-to-face"> Face-to-face</label>
         </div>
 
         <!-- Question 9 -->
-        <div class="question">
-            <h3>9. What would make you trust GuideLink?</h3>
-            <label><input type="checkbox" name="features" value="Verified"> Verified professionals</label>
-            <label><input type="checkbox" name="features" value="Privacy"> Privacy and confidentiality</label>
-            <label><input type="checkbox" name="features" value="Affordable"> Affordable prices</label>
-            <label><input type="checkbox" name="features" value="Qualified"> Professional qualifications</label>
-            <label><input type="checkbox" name="features" value="Reviews"> Reviews from other users</label>
-            <label><input type="checkbox" name="features" value="Secure"> Secure payment</label>
+        <div class="question" data-question="9">
+            <h3>9. What would make you trust GuideLink? <span style="font-weight:400;color:#718096;">(Select all that apply)</span></h3>
+            <label><input type="checkbox" name="features" value="Verified professionals"> Verified professionals</label>
+            <label><input type="checkbox" name="features" value="Privacy and confidentiality"> Privacy and confidentiality</label>
+            <label><input type="checkbox" name="features" value="Affordable prices"> Affordable prices</label>
+            <label><input type="checkbox" name="features" value="Professional qualifications"> Professional qualifications</label>
+            <label><input type="checkbox" name="features" value="Reviews from other users"> Reviews from other users</label>
+            <label><input type="checkbox" name="features" value="Secure payment"> Secure payment</label>
         </div>
 
         <!-- Question 10 -->
-        <div class="question">
+        <div class="question" data-question="10">
             <h3>10. What price would you consider reasonable for a session?</h3>
-            <label><input type="radio" name="price" value="Below 3000"> Below ₦3,000</label>
-            <label><input type="radio" name="price" value="3000-5000"> ₦3,000–₦5,000</label>
-            <label><input type="radio" name="price" value="5000-10000"> ₦5,000–₦10,000</label>
-            <label><input type="radio" name="price" value="10000-20000"> ₦10,000–₦20,000</label>
-            <label><input type="radio" name="price" value="Above 20000"> Above ₦20,000</label>
+            <label><input type="radio" name="price" value="Below ₦3,000"> Below ₦3,000</label>
+            <label><input type="radio" name="price" value="₦3,000–₦5,000"> ₦3,000–₦5,000</label>
+            <label><input type="radio" name="price" value="₦5,000–₦10,000"> ₦5,000–₦10,000</label>
+            <label><input type="radio" name="price" value="₦10,000–₦20,000"> ₦10,000–₦20,000</label>
+            <label><input type="radio" name="price" value="Above ₦20,000"> Above ₦20,000</label>
         </div>
 
-        <button type="button" class="submit-btn" onclick="submitSurvey()" id="submitBtn">
+        <button type="button" class="btn-submit" id="submitBtn" onclick="handleSubmit()">
             Submit Survey
         </button>
     </form>
 
+    <!-- Thank You -->
     <div class="thank-you" id="thankYou">
-        <h2>❤️ Thank You!</h2>
+        <div class="icon">❤️</div>
+        <h2>Thank You!</h2>
         <p>Your response has been received.</p>
-        <p>Your feedback will help us build GuideLink.</p>
+        <p style="color:#718096;">Your feedback will help us build GuideLink.</p>
+    </div>
+
+    <div class="footer">
+        No name or phone number is required. All responses are anonymous.
     </div>
 </div>
 
 <script>
-// Update progress bar
-function updateProgress() {
-    const questions = document.querySelectorAll('.question');
-    let answered = 0;
-    questions.forEach(question => {
-        const inputs = question.querySelectorAll('input');
-        let isAnswered = false;
-        inputs.forEach(input => {
-            if (input.type === 'radio' || input.type === 'checkbox') {
-                if (input.checked) isAnswered = true;
+/**
+ * GuideLink Survey - Client Side Logic
+ * Professional, production-ready code
+ */
+
+(function() {
+    'use strict';
+
+    // Configuration
+    const CONFIG = {
+        // ⚠️ IMPORTANT: Replace this with your actual Apps Script URL
+        API_URL: 'https://script.google.com/macros/s/YOUR_ACTUAL_ID/exec',
+        TOTAL_QUESTIONS: 10,
+        TIMEOUT_MS: 30000
+    };
+
+    // DOM References
+    const DOM = {
+        form: document.getElementById('surveyForm'),
+        submitBtn: document.getElementById('submitBtn'),
+        thankYou: document.getElementById('thankYou'),
+        progressBar: document.getElementById('progressBar'),
+        progressText: document.getElementById('progressText'),
+        errorMessage: document.getElementById('errorMessage'),
+        successMessage: document.getElementById('successMessage'),
+        questions: document.querySelectorAll('.question')
+    };
+
+    /**
+     * Calculate and update progress
+     */
+    function updateProgress() {
+        let answered = 0;
+        DOM.questions.forEach(function(question) {
+            const inputs = question.querySelectorAll('input');
+            let isAnswered = false;
+            inputs.forEach(function(input) {
+                if (input.checked) {
+                    isAnswered = true;
+                }
+            });
+            if (isAnswered) {
+                answered++;
+                question.classList.add('completed');
+            } else {
+                question.classList.remove('completed');
             }
         });
-        if (isAnswered) answered++;
-    });
-    const percentage = (answered / questions.length) * 100;
-    document.getElementById('progressBar').style.width = percentage + '%';
-}
-
-// Add event listeners
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('input').forEach(input => {
-        input.addEventListener('change', updateProgress);
-    });
-    updateProgress();
-});
-
-// Submit function
-async function submitSurvey() {
-    console.log("Function started");
-
-    const form = document.getElementById('survey');
-    const submitBtn = document.getElementById('submitBtn');
-    const errorMsg = document.getElementById('errorMsg');
-    const successMsg = document.getElementById('successMsg');
-
-    // Hide any previous messages
-    errorMsg.style.display = 'none';
-    successMsg.style.display = 'none';
-
-    // Disable button
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Submitting...';
-
-    // Collect form data
-    const formData = new FormData(form);
-    const data = {};
-    formData.forEach((value, key) => {
-        if (data[key]) {
-            data[key] += ', ' + value;
-        } else {
-            data[key] = value;
-        }
-    });
-
-    console.log('Data:', data);
-
-    try {
-        
-        const url = "https://script.google.com/macros/s/AKfycbxqGo5_CIxemkImac1SiMWuA6BE6RhyIUrQAv4IXTTILv1k7AufIuY3cUXmY29SN6Xm/exec";
-        console.log('Fetching URL:', url);
-
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams(data).toString()
-        });
-
-        console.log('Response status:', response.status);
-        const result = await response.text();
-        console.log('Response:', result);
-
-        if (response.status === 200) {
-            // Show thank you
-            document.getElementById('survey').style.display = 'none';
-            document.getElementById('thankYou').style.display = 'block';
-        } else {
-            errorMsg.textContent = 'Error: ' + response.status + ' - ' + result;
-            errorMsg.style.display = 'block';
-        }
-
-    } catch (error) {
-        console.error('Error:', error);
-        errorMsg.textContent = 'Error: ' + error.message + '. Please check console for details.';
-        errorMsg.style.display = 'block';
+        const percentage = Math.round((answered / CONFIG.TOTAL_QUESTIONS) * 100);
+        DOM.progressBar.style.width = percentage + '%';
+        DOM.progressText.textContent = percentage + '%';
+        return percentage;
     }
 
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Submit Survey';
-}
+    /**
+     * Show a message to the user
+     */
+    function showMessage(type, text) {
+        const msg = type === 'error' ? DOM.errorMessage : DOM.successMessage;
+        msg.textContent = text;
+        msg.style.display = 'block';
+        if (type === 'error') {
+            DOM.successMessage.style.display = 'none';
+        } else {
+            DOM.errorMessage.style.display = 'none';
+        }
+        // Auto-hide after 5 seconds
+        setTimeout(function() {
+            msg.style.display = 'none';
+        }, 5000);
+    }
+
+    /**
+     * Hide all messages
+     */
+    function hideMessages() {
+        DOM.errorMessage.style.display = 'none';
+        DOM.successMessage.style.display = 'none';
+    }
+
+    /**
+     * Collect form data as JSON
+     */
+    function collectFormData() {
+        const formData = new FormData(DOM.form);
+        const data = {};
+        formData.forEach(function(value, key) {
+            if (data[key]) {
+                data[key] += ', ' + value;
+            } else {
+                data[key] = value;
+            }
+        });
+        return data;
+    }
+
+    /**
+     * Validate that at least one question is answered
+     */
+    function validateForm(data) {
+        if (Object.keys(data).length === 0) {
+            showMessage('error', 'Please answer at least one question before submitting.');
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Submit the form data
+     */
+    async function submitForm(data) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(function() {
+            controller.abort();
+        }, CONFIG.TIMEOUT_MS);
+
+        try {
+            const response = await fetch(CONFIG.API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json'
+                },
+                body: new URLSearchParams(data).toString(),
+                signal: controller.signal
+            });
+
+            clearTimeout(timeoutId);
+
+            if (!response.ok) {
+                throw new Error('Server responded with status: ' + response.status);
+            }
+
+            const result = await response.json();
+            return result;
+
+        } catch (error) {
+            clearTimeout(timeoutId);
+            if (error.name === 'AbortError') {
+                throw new Error('Request timed out after ' + CONFIG.TIMEOUT_MS / 1000 + ' seconds');
+            }
+            throw error;
+        }
+    }
+
+    /**
+     * Handle form submission
+     */
+    async function handleSubmit() {
+        // Validate API URL is configured
+        if (CONFIG.API_URL.includes('YOUR_ACTUAL_ID')) {
+            showMessage('error', 'Please configure the API URL in the script.');
+            console.error('https://script.google.com/macros/s/AKfycbyRHjasRkWMhRaZ-11pvamJco_VkVcOTwigmK-6Kp3w0MdZFYs_03FI4QGyI4h1xv5F/exec.');
+            return;
+        }
+
+        hideMessages();
+        DOM.submitBtn.disabled = true;
+        DOM.submitBtn.textContent = 'Submitting...';
+
+        try {
+            const data = collectFormData();
+            console.log('Form Data:', data);
+
+            if (!validateForm(data)) {
+                DOM.submitBtn.disabled = false;
+                DOM.submitBtn.textContent = 'Submit Survey';
+                return;
+            }
+
+            const result = await submitForm(data);
+            console.log('Server Response:', result);
+
+            // Success
+            DOM.form.style.display = 'none';
+            DOM.thankYou.style.display = 'block';
+            showMessage('success', 'Your response has been submitted successfully!');
+
+        } catch (error) {
+            console.error('Submission Error:', error);
+            showMessage('error', 'Error: ' + error.message + '. Please try again.');
+            DOM.submitBtn.disabled = false;
+            DOM.submitBtn.textContent = 'Submit Survey';
+        }
+    }
+
+    /**
+     * Initialize event listeners
+     */
+    function init() {
+        // Add change listeners to all inputs
+        const allInputs = document.querySelectorAll('input');
+        allInputs.forEach(function(input) {
+            input.addEventListener('change', updateProgress);
+        });
+
+        // Initial progress calculation
+        updateProgress();
+
+        // Expose handleSubmit globally for onclick
+        window.handleSubmit = handleSubmit;
+
+        console.log('GuideLink Survey initialized.');
+        console.log('API URL:', CONFIG.API_URL);
+        console.log('Total Questions:', CONFIG.TOTAL_QUESTIONS);
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+})();
 </script>
 
 </body>
