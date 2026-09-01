@@ -505,9 +505,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
     async function submitSurvey() {
-    // Test alert to check if function is called
-    alert("Submit button clicked! Function is working.");
-
     const form = document.getElementById("survey");
 
     if (!form) {
@@ -529,40 +526,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Show data in console for debugging
     console.log("Form Data:", data);
 
     try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 15000);
-
         
         const response = await fetch("https://script.google.com/macros/s/AKfycbx4EtoKwLvIdR5tUMKjCt122P7ZGZbK5N8p5skLN2VLra1pseYe9_IbwjJs0sNA2Prz/exec", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
-            body: new URLSearchParams(data).toString(),
-            signal: controller.signal
+            body: new URLSearchParams(data).toString()
         });
 
-        clearTimeout(timeoutId);
+        console.log("Response received:", response);
         
-        // Hide survey, show thank you
+        // Show thank you
         document.getElementById("survey").style.display = "none";
         document.getElementById("thankYou").style.display = "block";
-        submitButton.disabled = false;
-        submitButton.textContent = "Submit Survey";
         
     } catch (error) {
         console.error("Error:", error);
-        if (error.name === 'AbortError') {
-            alert("Submission is taking too long. Please try again.");
-        } else {
-            alert("There was a problem submitting the survey. Please try again. Check console for details.");
-        }
-        submitButton.disabled = false;
-        submitButton.textContent = "Submit Survey";
+        alert("Error submitting: " + error.message);
+    }
+    
+    submitButton.disabled = false;
+    submitButton.textContent = "Submit Survey";
     }
 }
 </script>
