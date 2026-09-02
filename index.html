@@ -282,14 +282,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Submit function
     async function submitSurvey() {
-    const survey = document.querySelector("survey");
+    const survey = document.getElementById("survey");
 
     if (!survey) {
         alert("Survey section not found.");
         return;
     }
 
-    const submitButton = document.querySelector(".submit-btn");
+    const submitButton = document.getElementById(".submit-btn");
 
     if (submitButton) {
         submitButton.disabled = true;
