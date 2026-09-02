@@ -282,10 +282,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Submit function
     async function submitSurvey() {
-    const form = document.querySelector("survey");
+    const survey = document.querySelector("survey");
 
-    if (!form) {
-        alert("Survey form not found.");
+    if (!survey) {
+        alert("Survey section not found.");
         return;
     }
 
@@ -296,31 +296,40 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.textContent = "Submitting...";
     }
 
-    const formData = new FormData(form);
-    const data = {};
+    // Create hidden iframe
+    const iframe = document.createElement("iframe");
+    iframe.name = "guidelink-submit-frame";
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
 
-    formData.forEach((value, key) => {
-        if (data[key]) {
-            if (!Array.isArray(data[key])) {
-                data[key] = [data[key]];
-            }
-            data[key].push(value);
-        } else {
-            data[key] = value;
-        }
+    // Create temporary POST form
+    const sendForm = document.createElement("form");
+    sendForm.method = "POST";
+    sendForm.action = API_URL;
+    sendForm.target = "guidelink-submit-frame";
+    sendForm.style.display = "none";
+
+    // Collect selected radio buttons and checkboxes
+    const inputs = survey.querySelectorAll(
+        'input[type="radio"]:checked, input[type="checkbox"]:checked'
+    );
+
+    inputs.forEach(function(input) {
+        const hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.name = input.name;
+        hiddenInput.value = input.value;
+        sendForm.appendChild(hiddenInput);
     });
 
-    try {
-        await fetch(API_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: new URLSearchParams(data).toString()
-        });
+    document.body.appendChild(sendForm);
 
-        form.style.display = "none";
+    // Submit to Google Apps Script
+    sendForm.submit();
+
+    // Show thank-you message
+    setTimeout(function() {
+        survey.style.display = "none";
 
         const thankYou = document.getElementById("thankYou");
 
@@ -330,15 +339,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         window.scrollTo(0, 0);
 
-    } catch (error) {
-        console.error(error);
-
-        alert("There was a problem submitting the survey. Please try again.");
-
-        if (submitButton) {
-            submitButton.disabled = false;
-            submitButton.textContent = "Submit Survey";
-        }
+        sendForm.remove();
+        iframe.remove();
+    }, 2000);
+    
     }
 }
 </script>
